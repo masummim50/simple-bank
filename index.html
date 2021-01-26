@@ -27,19 +27,19 @@
             <div class="col-md-4">
                 <div class="money-box deposit">
                     <h5>deposit</h5>
-                    <h2>$ <span id="depositamount">00</span> </h2>
+                    <h2>$ <span id="deposited-amount">00</span> </h2>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="money-box withdraw">
                     <h5>withdraw</h5>
-                    <h2>$ <span id="withdrawn">00</span> </h2>
+                    <h2>$ <span id="withdrawn-amount">00</span> </h2>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="money-box balance">
                     <h5>balance</h5>
-                    <h2>$ <span id="balance">1230</span> </h2>
+                    <h2>$ <span id="current-balance">1230</span> </h2>
                 </div>
             </div>
         </div>
@@ -47,17 +47,17 @@
             <div class="col-md-6">
                 <div class="submit-area">
                     <h5>Deposit</h5>
-                    <input id="depositinput" class="form-control" placeholder="place deposit amount here">
+                    <input id="deposit-input" class="form-control" placeholder="place deposit amount here">
                     <br>
-                    <button id="depositbutton" class="btn btn-success">Deposit</button>
+                    <button id="deposit-button" class="btn btn-success">Deposit</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="submit-area">
                     <h5>Withdraw</h5>
-                    <input id="withdrawamount" class="form-control" placeholder="place withdraw amount here">
+                    <input id="withdraw-amount" class="form-control" placeholder="place withdraw amount here">
                     <br>
-                    <button id="withdrawbutton" class="btn btn-success">Withdraw</button>
+                    <button id="withdraw-button" class="btn btn-success">Withdraw</button>
                 </div>
             </div>
         </div>
@@ -76,38 +76,52 @@
             transactionarea.style.display = 'block'
         });
         // deposite event
-        const depositbutton = document.getElementById('depositbutton');
-        depositbutton.addEventListener('click', function(){
-            
-        const depositamount = document.getElementById('depositamount').innerText;
-        const depositnumber = parseFloat(depositamount);
-        const depositinput = document.getElementById('depositinput').value;
-        const depositinputnumber = parseFloat(depositinput);
-        const balance = document.getElementById('balance').innerText;
-        const balancenumber = parseFloat(balance);
-        const totaldeposit = depositnumber + depositinputnumber;
-        const totalbalance = balancenumber + depositinputnumber;
-        document.getElementById('depositamount').innerText = totaldeposit;
-        document.getElementById('balance').innerText = totalbalance;
-        document.getElementById('depositinput').value = "";
-        })
+        const depositButton = document.getElementById('deposit-button');
+        depositButton.addEventListener('click', function(){
+        const depositInput = document.getElementById('deposit-input').value;
+        const depositInputNumber = parseFloat(depositInput);
 
+        if(Number.isInteger(depositInputNumber)){
+            updateText("deposited-amount", depositInputNumber);
+            updateText("current-balance",depositInputNumber);
+            document.getElementById("deposit-input").value = '';
+        }
+        else{
+            alert('enter number only');
+            document.getElementById("deposit-input").value = '';
+            document.getElementById("deposit-input").focus();
+        }
+
+
+        });
+
+        
         // withdraw event
-        const withdrawbutton =  document.getElementById('withdrawbutton');
-        withdrawbutton.addEventListener('click', function(){
-            const withdrawinput = document.getElementById('withdrawamount').value;
-            const withdrawinputnumber = parseFloat(withdrawinput);
-            const withdrawn = document.getElementById('withdrawn').innerText;
-            const withdrawnnumber = parseFloat(withdrawn);
-            const totalwithdrawn = withdrawnnumber + withdrawinputnumber;
-            document.getElementById('withdrawn').innerText = totalwithdrawn;
-            const balance = document.getElementById('balance').innerText;
-            const balancenumber = parseFloat(balance);
-            const totalbalance = balancenumber - withdrawinputnumber;
-            document.getElementById('balance').innerText = totalbalance;
-            document.getElementById('withdrawamount').value = '';
-        })
+        const withdrawButton =  document.getElementById('withdraw-button');
+        withdrawButton.addEventListener('click', function(){
+            
+            const withdrawInput = document.getElementById("withdraw-amount").value;
+            const withdrawInputNumber = parseFloat(withdrawInput);
 
+            if(Number.isInteger(withdrawInputNumber)){
+                updateText('withdrawn-amount', withdrawInputNumber);
+                updateText('current-balance', -1*withdrawInputNumber);
+                document.getElementById("withdraw-amount").value = ''; 
+            }
+            else{
+                alert('enter numbers only');
+                document.getElementById("withdraw-amount").value = ''; 
+                document.getElementById("withdraw-amount").focus();
+            }
+             
+
+        });
+        function updateText(id, depositnumber){
+            const input = document.getElementById(id).innerText;
+            const inputNumber = parseFloat(input);
+            const total = inputNumber + depositnumber;
+            document.getElementById(id).innerText = total;
+        };
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
