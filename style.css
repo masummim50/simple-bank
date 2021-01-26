@@ -1,9 +1,29 @@
 body{
     padding:100px;
+    text-transform: capitalize;
 }
 .submit-area{
     margin-top: 40px;
     padding: 40px;
     box-shadow: 5px 5px 10px gray;
     border-radius: 10px;
+}
+#transaction-area{
+    display: none;
+}
+.money-box{
+    background:slateblue;
+    padding:20px;
+    margin:20px;
+    color:white;
+    border-radius: 10px;
+}
+.balance{
+    background:slateblue;
+}
+.deposit{
+    background:tomato;
+}
+.withdraw{
+    background:palevioletred;
 }
